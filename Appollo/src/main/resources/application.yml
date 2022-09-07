@@ -1,0 +1,7 @@
+message: "Appollo running in default profile"
+---
+spring:
+  config:
+    activate:
+      on-profile: cloud
+message: "Appollo running in cloud profile"
