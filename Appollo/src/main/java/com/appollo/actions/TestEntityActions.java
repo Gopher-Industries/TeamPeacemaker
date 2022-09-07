@@ -18,20 +18,23 @@ import org.springframework.data.domain.Slice;
 
 
 @Service
-public class TestEntityActions {
+public class TestEntityActions 
+{
 
 	
 	
 	@Autowired
 	TestEntityRepository entityRepository;
 	
-	public TestEntity saveTestEntity(String fname, String lname, int year) {
+	public TestEntity saveTestEntity(String fname, String lname, int year) 
+	{
 		TestEntity savedEntity = this.entityRepository.save(new TestEntity(fname, lname, year));
 		return savedEntity;
 	}
 
 	
-	public List<TestEntity> getAllTestEntities() {
+	public List<TestEntity> getAllTestEntities() 
+	{
 		Iterable<TestEntity> entities = this.entityRepository.findAll();
 		List<TestEntity> entitiesList = new ArrayList<>();
 		entities.forEach(entitiesList::add);		
