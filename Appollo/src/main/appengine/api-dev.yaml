@@ -1,6 +1,6 @@
 runtime: java17
 env: standard
-
+service: api-dev
 env_variables:
   SPRING_PROFILES_ACTIVE: "cloud"
 handlers:

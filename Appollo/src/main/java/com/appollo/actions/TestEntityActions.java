@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.appollo.data_pojo.TestEntity;
@@ -58,7 +60,7 @@ public class TestEntityActions
 	}
 
 	public TestEntity createTestEntities() {
-		TestEntity savedEntity = this.entityRepository.save(new TestEntity("Yuko", "Deed", 1976));
+		TestEntity savedEntity = this.entityRepository.save(new TestEntity("Eric", "Viking", 1999));
 		return savedEntity;  
     }
 	public void removeAll() {
@@ -70,6 +72,20 @@ public class TestEntityActions
 		Slice<TestEntity> s = this.entityRepository.findBylname(lname, pageable);
 		
 		return s;
+	}
+	public Slice<TestEntity> getTestEntitiesByPage(Pageable pageable)
+	{
+		
+		
+		Slice<TestEntity> s = this.entityRepository.findBy(pageable);
+		
+		return s;
+	}
+
+
+	public TestEntity save(TestEntity t) {
+		TestEntity savedEntity = this.entityRepository.save(t);
+		return savedEntity;
 	}
 	
 }

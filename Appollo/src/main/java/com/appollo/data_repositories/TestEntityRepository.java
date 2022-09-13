@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.Param;
 
 import com.appollo.data_pojo.TestEntity;
@@ -22,6 +23,9 @@ public interface TestEntityRepository extends DatastoreRepository<TestEntity, Lo
 	List<TestEntity> findByLnameAndYear(String lname, int year);
 	
 	Slice<TestEntity> findBylname(String lname, Pageable pageable);
+	
+	//Slice<TestEntity> getPage(Pageable pageable);
+	Slice<TestEntity> findBy(Pageable page);
 	
 	
 
