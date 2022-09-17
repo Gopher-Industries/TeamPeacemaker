@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MimeTypeUtils;
@@ -31,16 +32,44 @@ public class TestEntityController {
 	@Autowired
 	TestEntityActions actions;
 		
-	@RequestMapping("/createTestEntities")
-    public TestEntity createTestEntities() {
-		
-        return actions.createTestEntities();
-    }
 	
-	 @RequestMapping("/getTestEntities")
-	    public List<TestEntity> getTestEntities() {
-	        return actions.getAllTestEntities();
-	    }
+	
+	
+	
+	
+			@RequestMapping(
+					value="/createTestEntity", 
+					method=RequestMethod.POST,
+					produces = { MimeTypeUtils.APPLICATION_JSON_VALUE },
+					headers = "Accept=application/json")
+			public ResponseEntity<TestEntity> createTestEntity(@RequestBody TestEntity t)
+			{
+				try {
+					return new ResponseEntity<TestEntity>(actions.save(t), HttpStatus.OK);
+				} catch (Exception e) {
+					e.printStackTrace();
+					return new ResponseEntity<TestEntity>(HttpStatus.BAD_REQUEST);
+				}
+				
+			}
+	
+			 @RequestMapping(
+						value = "/getTestEntitiesByPage",
+						method = RequestMethod.GET,
+						produces = { MimeTypeUtils.APPLICATION_JSON_VALUE },
+						headers = "Accept=application/json"
+					)
+					public ResponseEntity<Slice<TestEntity>> getPageOfTestEntitiesByLName(@RequestParam("page") int page) {
+						try {
+							PageRequest p = PageRequest.of(page, 2,Sort.Direction.ASC, "lname");
+							
+							return new ResponseEntity<Slice<TestEntity>>(actions.getTestEntitiesByPage(p), HttpStatus.OK);
+						} catch (Exception e) {
+							return new ResponseEntity<Slice<TestEntity>>(HttpStatus.BAD_REQUEST);
+						}
+
+			 }
+	
 	
 	 @RequestMapping(
 				value = "/getAllTestEntities",

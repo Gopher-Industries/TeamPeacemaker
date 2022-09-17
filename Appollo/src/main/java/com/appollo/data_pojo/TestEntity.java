@@ -14,8 +14,18 @@ public class TestEntity {
 	String lname;
 
 	int year;
-
+public TestEntity()
+{
+	
+}
 	public TestEntity(String fname, String lname, int year) {
+		this.fname = fname;
+		this.lname = lname;
+		this.year = year;
+	}
+
+	public TestEntity(long id,String fname, String lname, int year) {
+		this.id=id;
 		this.fname = fname;
 		this.lname = lname;
 		this.year = year;
@@ -25,6 +35,18 @@ public class TestEntity {
 		return this.id;
 	}
 	
+	public void setlname(String lname)
+	{
+		this.lname=lname;
+	}
+	public void setfname(String fname)
+	{
+		this.fname=fname;
+	}
+	public void setyear(int year)
+	{
+		this.year=year;
+	}
 	public String getlname()
 	{
 		return this.lname;
