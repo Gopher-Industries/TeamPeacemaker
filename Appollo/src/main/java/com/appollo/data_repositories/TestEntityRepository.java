@@ -27,6 +27,11 @@ public interface TestEntityRepository extends DatastoreRepository<TestEntity, Lo
 	//Slice<TestEntity> getPage(Pageable pageable);
 	Slice<TestEntity> findBy(Pageable page);
 	
-	
+	@Query("SELECT * FROM TestEntity WHERE year >= @year")
+	  List<TestEntity> queryTestEntitiesAfterYear(@Param("year") int year);
 
+	  @Query("SELECT * FROM TestEntity WHERE id = @id_val")
+	  TestEntity queryTestEntityById(@Param("id_val") long id);  
+	
 }
+

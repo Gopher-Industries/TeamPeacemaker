@@ -1,0 +1,59 @@
+package com.appollo.data_repositories;
+
+
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.Param;
+
+import com.appollo.data_pojo.TestEntity;
+import com.appollo.data_pojo.UserMedication;
+import com.google.cloud.Timestamp;
+import com.google.cloud.spring.data.datastore.repository.DatastoreRepository;
+import com.google.cloud.spring.data.datastore.repository.query.Query;
+
+/*
+ * getUserMedsByUserID - all medications for a given user
+ * getUserMedsByPrescriptionID - all medications on a given prescription/medication script
+ * getUserMedsNotTakenByUserID - all medications for a given user where dose taken null/1900
+ * getUserMedsByUserID_DoseTakenDate_DoseTimeDate - all medications for a given user where dose taken on a given date and dose time on a given date.
+ * getUserMedsByUserID_DoseTimeDate  - all medications for a given user where dose time on a given date.
+ * 
+ * createUserMedication - create a new user medication
+ * updateUserMedication - find UserMedByID param and update dose_taken field of found UserMedication object and then call UserMedicationRepository save
+ * 
+ * 
+ */
+
+public interface UserMedicationRepository extends DatastoreRepository<UserMedication, Long> {
+
+	@Query("SELECT * FROM UserMedication WHERE prescription_id = @prescription_id")
+	List<UserMedication> queryAllByPrescriptionID(long prescription_id);
+	
+		
+	Slice<UserMedication> findBy(Pageable page);
+	
+	
+	@Query("SELECT * FROM UserMedication WHERE user_id_fk = @user_id_fk")
+	Page<UserMedication> queryPageByUserID(long user_id_fk, Pageable pageable);
+	
+	@Query("SELECT * FROM UserMedication WHERE user_id_fk = @user_id_fk")
+	List<UserMedication> queryAllByuserID(long user_id_fk);
+	
+	@Query("SELECT * FROM UserMedication WHERE user_id_fk = @user_id_fk AND dose_taken <= @dose_taken")
+	  List<UserMedication> queryUserMedicationsDoseTakenBeforeDate(@Param("user_id_fk") long user_id_fk,@Param("dose_taken")Timestamp dose_taken);
+
+	@Query("SELECT * FROM UserMedication WHERE user_id_fk = @user_id_fk AND dose_time >= @startdate AND dose_time <= @enddate")
+	Slice<UserMedication> getPageUserMedsByUserIDDoseTimeBetweenDates(long user_id_fk, @Param("startdate")Timestamp startdate, Timestamp enddate,Pageable p);
+	
+	
+
+	 // @Query("SELECT * FROM TestEntity WHERE id = @id_val")
+	 // TestEntity queryTestEntityById(@Param("id_val") long id);  
+	
+		
+
+}
