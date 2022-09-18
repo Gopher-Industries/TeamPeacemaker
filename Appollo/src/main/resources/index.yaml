@@ -1,0 +1,11 @@
+indexes:
+
+- kind: UserMedication
+  properties:
+  - name: user_id_fk
+  - name: dose_taken  
+
+- kind: UserMedication
+  properties:
+  - name: user_id_fk
+  - name: dose_time

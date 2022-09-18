@@ -52,7 +52,10 @@ public class TestEntityActions
 		List<TestEntity> entities = this.entityRepository.findByYearGreaterThan(year);
 		return entities;
 	}
-
+	public List<TestEntity> queryByYearGreaterThan(int year) {
+		List<TestEntity> entities = this.entityRepository.queryTestEntitiesAfterYear(year);
+		return entities;
+	}
 	
 	public List<TestEntity> findByAuthorYear(String lname, int year) {
 		List<TestEntity> entities = this.entityRepository.findByLnameAndYear(lname, year);
