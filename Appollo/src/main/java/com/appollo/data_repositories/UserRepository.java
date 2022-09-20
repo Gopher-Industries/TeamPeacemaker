@@ -1,6 +1,7 @@
 package com.appollo.data_repositories;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,4 +26,7 @@ public interface UserRepository extends DatastoreRepository<User, Long> {
 	
 	//Slice<TestEntity> getPage(Pageable pageable);
 	Slice<User> findBy(Pageable page);
+	
+	@Query("SELECT * FROM User WHERE Email = @email")
+	List<User> findByEmail(String email);
 }

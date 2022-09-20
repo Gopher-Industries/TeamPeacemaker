@@ -15,6 +15,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.appollo.validator.Phone;
+import com.appollo.validator.UniqueEmail;
 
 @Entity(name = "User")
 public class User {
@@ -39,7 +40,7 @@ public class User {
 	@Field(name = "Medicare_Number")
 	String medicare_num;
 	
-	@NotEmpty @Email
+	@UniqueEmail
 	@Field(name = "Email")
 	String email;
 	

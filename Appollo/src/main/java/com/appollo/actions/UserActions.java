@@ -16,6 +16,7 @@ import com.google.cloud.spring.data.datastore.repository.query.Query;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
+import java.util.Optional;
 
 
 @Service
@@ -89,6 +90,25 @@ public class UserActions {
 		Slice<User> s = this.userRepository.findBylname(lname, pageable);
 		
 		return s;
+	}
+	
+	
+	
+	// Test email check
+	public boolean isEmailAlreadyInUse(String email){
+		
+		boolean userInDb = true;
+		if (getUsersByEmail(email) == true) userInDb = false;
+		return userInDb;
+	}
+	
+	// Get user by email
+	public Boolean getUsersByEmail(String email)
+	{
+		List<User> s = this.userRepository.findByEmail(email);
+		System.out.print(s.isEmpty());
+		System.out.print(s);
+		return s.isEmpty();
 	}
 	
 }
