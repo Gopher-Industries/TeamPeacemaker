@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import com.appollo.data_pojo.User;
 import com.appollo.data_repositories.UserRepository;
 import com.google.cloud.spring.data.datastore.repository.query.Query;
+
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -57,12 +59,10 @@ public class UserActions {
 		return usersList;
 	}
 	
-	public Slice<User> getUsersByPage(Pageable pageable)
-	{
+	public Page<User> getUsersByPage(Pageable pageable)
+	{		
 		
-		
-		Slice<User> s = this.userRepository.findBy(pageable);
-		
+		Page<User> s = this.userRepository.findBy(pageable);		
 		return s;
 	}
 
@@ -85,9 +85,9 @@ public class UserActions {
 	}
 
 	
-	public Slice<User> findUserBylname(String lname, Pageable pageable)
+	public Page<User> findUserBylname(String lname, Pageable pageable)
 	{
-		Slice<User> s = this.userRepository.findBylname(lname, pageable);
+		Page<User> s = this.userRepository.findBylname(lname, pageable);
 		
 		return s;
 	}
@@ -109,6 +109,11 @@ public class UserActions {
 		System.out.print(s.isEmpty());
 		System.out.print(s);
 		return s.isEmpty();
+	}
+
+	public Page<User> queryUserByMedicareNumber(String medicareNumber, PageRequest p) {
+		// TODO Auto-generated method stub
+		return this.userRepository.queryByMedicareNumber(medicareNumber, p);
 	}
 	
 }

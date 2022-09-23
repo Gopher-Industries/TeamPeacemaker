@@ -34,7 +34,7 @@ public interface UserMedicationRepository extends DatastoreRepository<UserMedica
 	List<UserMedication> queryAllByPrescriptionID(long prescription_id);
 	
 		
-	Slice<UserMedication> findBy(Pageable page);
+	Page<UserMedication> findBy(Pageable page);
 	
 	
 	@Query("SELECT * FROM UserMedication WHERE user_id_fk = @user_id_fk")
@@ -47,7 +47,7 @@ public interface UserMedicationRepository extends DatastoreRepository<UserMedica
 	  List<UserMedication> queryUserMedicationsDoseTakenBeforeDate(@Param("user_id_fk") long user_id_fk,@Param("dose_taken")Timestamp dose_taken);
 
 	@Query("SELECT * FROM UserMedication WHERE user_id_fk = @user_id_fk AND dose_time >= @startdate AND dose_time <= @enddate")
-	Slice<UserMedication> getPageUserMedsByUserIDDoseTimeBetweenDates(long user_id_fk, @Param("startdate")Timestamp startdate, Timestamp enddate,Pageable p);
+	Page<UserMedication> getPageUserMedsByUserIDDoseTimeBetweenDates(long user_id_fk, @Param("startdate")Timestamp startdate, Timestamp enddate,Pageable p);
 	
 	
 

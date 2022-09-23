@@ -96,7 +96,7 @@ public class UserMedicationActions
 		return savedEntity;
 	}
 
-	public Slice<UserMedication> getPageUserMedsByUserIDDoseTimeBetweenDates(long userid, long startdate, long enddate,
+	public Page<UserMedication> getPageUserMedsByUserIDDoseTimeBetweenDates(long userid, long startdate, long enddate,
 			Pageable p) {
 		
 		return this.entityRepository.getPageUserMedsByUserIDDoseTimeBetweenDates(userid,Timestamp.ofTimeMicroseconds(startdate*1000*1000),Timestamp.ofTimeMicroseconds(enddate*1000*1000), p);	

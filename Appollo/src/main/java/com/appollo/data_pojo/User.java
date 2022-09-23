@@ -1,9 +1,12 @@
 package com.appollo.data_pojo;
 
+import com.google.cloud.Timestamp;
 import com.google.cloud.spring.data.datastore.core.mapping.Entity;
 import com.google.cloud.spring.data.datastore.core.mapping.Field;
 import org.springframework.data.annotation.Id;
 import java.util.Date;
+import java.util.Map;
+
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -16,6 +19,40 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.appollo.validator.Phone;
 import com.appollo.validator.UniqueEmail;
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonGetter;
+
+
+/*public class AliasBean {
+    @JsonAlias({ "fName", "f_name" })
+    private String firstName;   
+    private String lastName;
+}*/
+
+/*
+ * public class BeanWithCreator {
+    public int id;
+    public String name;
+
+    @JsonCreator
+    public BeanWithCreator(
+      @JsonProperty("id") int id, 
+      @JsonProperty("theName") String name) {
+        this.id = id;
+        this.name = name;
+    }
+}
+ */
+
+/*
+ * 
+ * @JsonInclude(Include.NON_NULL)
+public class MyBean {
+    public int id;
+    public String name;
+}
+ */
 
 @Entity(name = "User")
 public class User {
@@ -28,7 +65,17 @@ public class User {
 
 	@NotNull @Size(min=2, max=20)
 	@Field(name = "Last_name")
+	@JsonAlias({ "lName", "l_name" })
 	String lname;
+	
+	@Size(min=2, max=20)
+	@Field(name = "Preferred_name")
+	@JsonAlias({ "PreferredName", "Preferred_name" })
+	String preferredName;
+	
+	@Field(name="Gender")
+	@JsonAlias({ "gender", "Gender" })
+	String gender;
 	
 	//Assume that app user should be old enough for usage. 
 	@NotNull @Min(12) @Max(150)
@@ -37,6 +84,7 @@ public class User {
 	
 	// I think that Doctors would check medicare number legitimacy manually each time seeing a patient, so not sure if needed validator for this
 	// Personally I also haven't learned how to identify legitimate Medicare-number as well
+	@JsonAlias({ "medicare_number", "Medicare_Number","medicare_Number","MedicareNumber" })
 	@Field(name = "Medicare_Number")
 	String medicare_num;
 	
@@ -65,6 +113,12 @@ public class User {
 	@NotEmpty
 	@Field(name = "Emergency_Name2")
 	String emer_name_2;
+	
+	@JsonAlias({ "DOB", "dob", "Date_Of_Birth", "Date_of_Birth" })
+	@Field(name="Date_of_Birth")
+	Timestamp dob;
+
+	
 	
 
 public User()
@@ -96,6 +150,7 @@ public User()
 		this.emer_name_1 = emer_name_1;
 		this.emer_num_2 = emer_num_2;
 		this.emer_name_2 = emer_name_2;
+		
 	}
 
 	public long getId() {
@@ -103,18 +158,27 @@ public User()
 	}
 	
 	public void setlname(String lname)
-	{
+	{		
 		this.lname=lname;
 	}
 	public void setfname(String fname)
 	{
 		this.fname=fname;
 	}
+	public void setPreferredName(String pname)
+	{
+		this.preferredName = pname;
+	}
+	
+	public void setGender(String gender)
+	{
+		this.gender = gender;
+	}
 	public void setage(int age)
 	{
 		this.age=age;
 	}
-	public void setmedicarenum(String medicare_num)
+	public void setmedicarenumber(String medicare_num)
 	{
 		this.medicare_num = medicare_num;
 	}
@@ -144,8 +208,18 @@ public User()
 	}
 	
 	
-	
-	
+	public Date getDOB() {
+		//return dose_taken.toDate().toString();
+		if(dob != null)
+			return dob.toDate();
+		else
+			return new Date(0);
+	}
+
+	public void setDOB(long seconds) {
+		this.dob = Timestamp.ofTimeMicroseconds(seconds*1000*1000);
+	}
+
 	
 	public String getlname()
 	{
@@ -154,6 +228,10 @@ public User()
 	public String getfname()
 	{
 		 return this.fname;
+	}
+	public String getPreferredName()
+	{
+		return preferredName;
 	}
 	public int getage()
 	{
@@ -187,5 +265,10 @@ public User()
 	{
 		return this.emer_name_2;
 	}
+	public String getGender() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	
 }
