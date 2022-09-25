@@ -20,6 +20,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import java.util.Optional;
 
+/*
+ * Action classes that link endpoint methods to datarepository queries
+ * Any backend business logic can be added here eg checking if record exists before creating a new record
+ * 
+ * Note the @Service annotation that allows Spring to Autowire this class in its corresponding controller class and entity class
+ */
+
 
 @Service
 public class UserActions {

@@ -8,6 +8,15 @@ import com.appollo.data_pojo.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
+/*
+ * A singleton class that adds custom JSON serializers to an ObjectMapper for each expected client.
+ * Each ObjectMapper is placed in the userViewsmap HashMap with the client name as the Map key.
+ * This key can be sent as a request parameter to ensure the response contains the custom fields8 and field names expected by the client
+ * 
+ * 
+ * 
+ */
+
 public class UserView {
 	
 	private static UserView single_instance = null;

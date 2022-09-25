@@ -23,7 +23,22 @@ import com.appollo.Views.UserView;
 import com.appollo.actions.UserActions;
 import com.appollo.data_pojo.User;
 
-
+/* Endpoints for CRUD operations on User records used by all teams that store user records
+ * For a list of expected request parameters and returned response parameters see:
+ * ?????
+ * Note that the underlying entity class can be configured to allow alias names on request parameters 
+ * Responses using the UserView singleton instance can be customized to suite the client - ie which User fields are returned and the name used for each name/value pair  
+ * Note that the UserView relies on the request containing a valid requester parameter. At present this is an unencrypted string eg: requester=eternals/avengers
+ * 
+ * 
+ * createUser
+ * getUsersByPage
+ * getAllUsers
+ * getPageOfUsersByLName - search by last name
+ * getPageOfUsersByMedicareNumber - should only return a single record since medicare numbers are unique identifiers but test data can be unreliable!
+ * 
+ *  Paged results return up to 20 records per request. The response includes fields to indicate current page, total number of pages and if more records exist. 
+ */
 
 
 @RestController

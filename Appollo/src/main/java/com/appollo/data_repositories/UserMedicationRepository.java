@@ -16,16 +16,7 @@ import com.google.cloud.spring.data.datastore.repository.DatastoreRepository;
 import com.google.cloud.spring.data.datastore.repository.query.Query;
 
 /*
- * getUserMedsByUserID - all medications for a given user
- * getUserMedsByPrescriptionID - all medications on a given prescription/medication script
- * getUserMedsNotTakenByUserID - all medications for a given user where dose taken null/1900
- * getUserMedsByUserID_DoseTakenDate_DoseTimeDate - all medications for a given user where dose taken on a given date and dose time on a given date.
- * getUserMedsByUserID_DoseTimeDate  - all medications for a given user where dose time on a given date.
- * 
- * createUserMedication - create a new user medication
- * updateUserMedication - find UserMedByID param and update dose_taken field of found UserMedication object and then call UserMedicationRepository save
- * 
- * 
+ * interface class used by Spring framework to build database access
  */
 
 public interface UserMedicationRepository extends DatastoreRepository<UserMedication, Long> {
@@ -50,10 +41,5 @@ public interface UserMedicationRepository extends DatastoreRepository<UserMedica
 	Page<UserMedication> getPageUserMedsByUserIDDoseTimeBetweenDates(long user_id_fk, @Param("startdate")Timestamp startdate, Timestamp enddate,Pageable p);
 	
 	
-
-	 // @Query("SELECT * FROM TestEntity WHERE id = @id_val")
-	 // TestEntity queryTestEntityById(@Param("id_val") long id);  
-	
-		
 
 }

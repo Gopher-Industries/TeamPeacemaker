@@ -15,6 +15,9 @@ import com.appollo.data_pojo.UserMedication;
 import com.google.cloud.spring.data.datastore.repository.DatastoreRepository;
 import com.google.cloud.spring.data.datastore.repository.query.Query;
 
+/*
+ * interface class used by Spring framework to build database access
+ */
 
 public interface UserRepository extends DatastoreRepository<User, Long> {
 	

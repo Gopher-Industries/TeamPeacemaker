@@ -4,6 +4,19 @@ import com.google.cloud.Timestamp;
 import com.google.cloud.spring.data.datastore.core.mapping.Entity;
 import org.springframework.data.annotation.Id;
 
+/*
+ * 
+ *  An entity POJO for UserMedication records.
+ *
+ *  The @Entity field allows to Spring to serialize/deserialize these objects to and from JSON to Java 
+ *  Entity classes get mapped to JSON objects during serialization into JSON responses.
+ *  Requests containing UserMedication objects get deserialized to UserMedication POJOs  
+ *  
+ *  Could use annotations for validation, the @field annotation for more explicit mapping to database fields and @JSON alias for more flexibility with request parameter names 
+ *  - without these annotations method and property names must match up with request parameters and database fields to allow Spring to do its mapping magic 
+ *  
+ */
+
 @Entity (name = "UserMedication")//Entity annotation fails when using underscores
 public class UserMedication {
 	

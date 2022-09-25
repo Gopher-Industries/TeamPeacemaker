@@ -28,16 +28,10 @@ public class UserMedicationActions
 {
 
 	/*
-	 * getUserMedsByUserID - all medications for a given user
-	 * getUserMedsByPrescriptionID - all medications on a given prescription/medication script
-	 * getUserMedsNotTakenByUserID - all medications for a given user where dose taken null/1900
-	 * getUserMedsByUserID_DoseTakenDate_DoseTimeDate - all medications for a given user where dose taken on a given date and dose time on a given date.
-	 * getUserMedsByUserID_DoseTimeDate  - all medications for a given user where dose time on a given date.
+	 * Action classes that link endpoint methods to datarepository queries
+	 * Any backend business logic can be added here eg checking if record exists before creating a new record
 	 * 
-	 * createUserMedication - create a new user medication
-	 * updateUserMedication - find UserMedByID param and update dose_taken field of found UserMedication object and then call UserMedicationRepository save
-	 * 
-	 * 
+	 * Note the @Service annotation that allows Spring to Autowire this class in its corresponding controller class and entity class
 	 */
 	
 	

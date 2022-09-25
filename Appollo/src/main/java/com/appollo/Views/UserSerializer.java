@@ -7,6 +7,11 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 
+/*
+ * 
+ * A customer JSON serializer that allows different views to for each client app.  
+ */
+
 public class UserSerializer extends StdSerializer<User> {
 
     private static final long serialVersionUID = 1L;
@@ -27,10 +32,11 @@ public class UserSerializer extends StdSerializer<User> {
    
 	@Override
 	public void serialize(User user, JsonGenerator jsonGenerator, SerializerProvider provider) throws IOException {
-		
+		try {
+		jsonGenerator.writeStartObject();
 		switch (key) {
 		case UserView.ETERNALS:
-			jsonGenerator.writeStartObject();
+			
 	        jsonGenerator.writeNumberField("id", user.getId());
 	        jsonGenerator.writeStringField("Medicare_Number",user.getmedicare_num());
 	        jsonGenerator.writeStringField("First_name",user.getfname());
@@ -40,33 +46,33 @@ public class UserSerializer extends StdSerializer<User> {
 	        jsonGenerator.writeStringField("Emergency_Contact_name_1",user.getemer_name_1());
 	        jsonGenerator.writeStringField("Emergency_Contact_phone_number_1",user.getemer_num_1());
 	        jsonGenerator.writeStringField("Emergency_Contact_name_2",user.getemer_name_2());
-	        jsonGenerator.writeStringField("Emergency_Contact_phone_number_2",user.getemer_num_2());
-	        
+	        jsonGenerator.writeStringField("Emergency_Contact_phone_number_2",user.getemer_num_2());        
 	       
-	       // jsonGenerator.writeStringField("qualification", healthWorker.getQualification());
-	        //jsonGenerator.writeObjectField("yearsOfExperience", healthWorker.getYearsOfExperience());
-	        //jsonGenerator.writePOJOField("dateOfJoining", healthWorker.getDateOfJoining());
-	        jsonGenerator.writeEndObject();
 			break;
 			
 		case UserView.AVENGERS:
-			jsonGenerator.writeStartObject();
+			
 	        jsonGenerator.writeNumberField("Patient_ID", user.getId());
 	        jsonGenerator.writeStringField("Given_Name",user.getfname());
 	        jsonGenerator.writeStringField("Family_Name",user.getlname());
 	        jsonGenerator.writeStringField("Preferred_Name",user.getPreferredName());
 	        jsonGenerator.writeStringField("Gender",user.getGender());
 	        jsonGenerator.writePOJOField("Date_Of_Birth",user.getDOB());
-	        jsonGenerator.writePOJOField("Age_In_Days",user.getage());
-	       // jsonGenerator.writeStringField("qualification", healthWorker.getQualification());
-	        //jsonGenerator.writeObjectField("yearsOfExperience", healthWorker.getYearsOfExperience());
-	        //jsonGenerator.writePOJOField("dateOfJoining", healthWorker.getDateOfJoining());
-	        jsonGenerator.writeEndObject();
+	        jsonGenerator.writePOJOField("Age_In_Days",user.getage());	
+	       
 			break;
+			
+			//TODO more to add
+			
 		
 		}
-		
+		 jsonGenerator.writeEndObject();
+		}catch(NullPointerException npe)
+		{
+			jsonGenerator.writeStartObject();
+			 jsonGenerator.writeStringField("error","failed serialization");
+			jsonGenerator.writeEndObject();
+		}
 		 
-		
 	}
 }

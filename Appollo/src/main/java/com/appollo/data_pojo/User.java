@@ -23,35 +23,14 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
-
-/*public class AliasBean {
-    @JsonAlias({ "fName", "f_name" })
-    private String firstName;   
-    private String lastName;
-}*/
-
-/*
- * public class BeanWithCreator {
-    public int id;
-    public String name;
-
-    @JsonCreator
-    public BeanWithCreator(
-      @JsonProperty("id") int id, 
-      @JsonProperty("theName") String name) {
-        this.id = id;
-        this.name = name;
-    }
-}
- */
-
 /*
  * 
- * @JsonInclude(Include.NON_NULL)
-public class MyBean {
-    public int id;
-    public String name;
-}
+ *  An entity POJO for User records.
+ *  Uses annotations for validation and JSON alias
+ *  
+ *  The @Entity field allows to Spring to serialize/deserialize these objects to and from JSON to Java 
+ *  Entity classes get mapped to JSON objects during serialization into JSON responses.
+ *  Requests containing User objects get deserialized to User POJOs  
  */
 
 @Entity(name = "User")
