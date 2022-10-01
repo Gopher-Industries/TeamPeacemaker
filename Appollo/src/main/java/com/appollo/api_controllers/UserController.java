@@ -22,6 +22,9 @@ import org.springframework.validation.BindingResult;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.UUID;
@@ -73,10 +76,11 @@ public class UserController {
 		
 		try {
 				if (bindingResult.hasErrors()) {
-					//System.out.println(bindingResult.toString());
+					
 					return (new ResponseEntity<String>("Invalid values: "+ bindingResult.toString(),HttpStatus.BAD_REQUEST).toString());
 					
 				}else {
+					/*return encodeValue(UserView.getInstance().getObjectMapper(user.getRequester()).writeValueAsString(new ResponseEntity<User>(actions.save(user),responseHeaders, HttpStatus.OK)));*/
 					return UserView.getInstance().getObjectMapper(user.getRequester()).writeValueAsString(new ResponseEntity<User>(actions.save(user),responseHeaders, HttpStatus.OK));
 				}
 		} catch (Exception e) {
@@ -217,4 +221,12 @@ public class UserController {
 
 	    return sb.toString();
 	}
+	
+	private String encodeValue(String value) {
+        try {
+            return URLEncoder.encode(value, StandardCharsets.UTF_8.toString());
+        } catch (UnsupportedEncodingException ex) {
+            throw new RuntimeException(ex.getCause());
+        }
+    }
 }
