@@ -9,3 +9,10 @@ indexes:
   properties:
   - name: user_id_fk
   - name: dose_time
+  
+- kind: User
+  properties:
+  - name: serviceSubscription
+  - name: Last_name
+  
+ 

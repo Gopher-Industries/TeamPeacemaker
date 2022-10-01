@@ -38,7 +38,7 @@ public class UserSerializer extends StdSerializer<User> {
 		case UserView.ETERNALS:
 			
 	        jsonGenerator.writeNumberField("id", user.getId());
-	        jsonGenerator.writeStringField("Medicare_Number",user.getmedicare_num());
+	        jsonGenerator.writeStringField("Medicare_Number",user.getMedicareNumber());
 	        jsonGenerator.writeStringField("First_name",user.getfname());
 	        jsonGenerator.writeStringField("Last_name",user.getlname());
 	        jsonGenerator.writeStringField("Email_address",user.getemail());
@@ -57,7 +57,7 @@ public class UserSerializer extends StdSerializer<User> {
 	        jsonGenerator.writeStringField("Family_Name",user.getlname());
 	        jsonGenerator.writeStringField("Preferred_Name",user.getPreferredName());
 	        jsonGenerator.writeStringField("Gender",user.getGender());
-	        jsonGenerator.writePOJOField("Date_Of_Birth",user.getDOB());
+	        jsonGenerator.writePOJOField("Date_Of_Birth",user.getEpochDOB());
 	        jsonGenerator.writePOJOField("Age_In_Days",user.getage());	
 	       
 			break;

@@ -2,6 +2,7 @@ package com.appollo.Views;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.appollo.data_pojo.User;
@@ -24,6 +25,8 @@ public class UserView {
 	static final String ETERNALS = "eternals"; //todo make this an encrypted shared key
 	static final String AVENGERS = "avengers"; 
 	
+	public static final String[] serviceSubscriptions = {ETERNALS,AVENGERS};;
+	
 	UserSerializer eternals_serializer;
 	UserSerializer avengers_serializer;
 	
@@ -41,6 +44,7 @@ public class UserView {
 	
 	private UserView()
 	{
+				
 		userViewsmap = new HashMap<String,ObjectMapper>();
 		
 		
@@ -66,7 +70,12 @@ public class UserView {
 	 
     public ObjectMapper getObjectMapper(String mapKey)
     {
-    	return userViewsmap.get(mapKey);
+    	if(userViewsmap.get(mapKey) != null) {
+    		return userViewsmap.get(mapKey);
+    	}else {
+    		throw new NullPointerException("invalid requester key");
+    	}
+    	
     }
 
 }
